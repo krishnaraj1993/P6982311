@@ -1,13 +1,3 @@
-# React Native Simple Login Template
-
-More templates at [ReactNativeMarket.com](http://reactnativemarket.com/) 💖
-
-**react-native-login-template** is proudly sponsored by
-
-<a href="https://nativeforms.com" rel="nofollow" target="_blank">
-  <img src="https://raw.githubusercontent.com/venits/native-forms/master/assets/sponsor.png" width="350"><br />
-  Build forms, surveys and polls for React Native apps.
-</a>
 
 
 ## How to use?
