@@ -10,7 +10,7 @@ const DashboardHeader = (props) => {
   return (
       <>
       <Appbar.Header>
-        <Appbar.Content title={props.title} subtitle="Subtitle" />
+        <Appbar.Content title={props.title}/>
         {props.logout==='off'?null:Logout}
       </Appbar.Header>
       <Background>{props.children}</Background>

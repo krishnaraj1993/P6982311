@@ -5,12 +5,12 @@ import DashboardHeader from '../components/DashboardHeader';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const items = [
-  { name: 'BMI Report', background: '#3498db', icon: 'user' },
-  { name: 'BMR Report', background: '#ef0202', icon: 'gratipay' },
-  { name: 'Lovely', background: '#efcf02', icon: 'heart' },
-  { name: 'Team', background: '#02ef1d', icon: 'users' },
-  { name: 'Friends', background: '#02cbef', icon: 'group' },
-  { name: 'Calendars', background: '#ef5802', icon: 'calendar' },
+  { name: 'BMI & BMR Report', background: '#3498db', icon: 'gratipay' },
+  //{ name: 'BMR Report', background: '#ef0202', icon: 'gratipay' },
+  //{ name: 'Lovely', background: '#efcf02', icon: 'heart' },
+  //{ name: 'Team', background: '#02ef1d', icon: 'users' },
+  //{ name: 'Friends', background: '#02cbef', icon: 'group' },
+  //{ name: 'Calendars', background: '#ef5802', icon: 'calendar' },
 ];
 
 
@@ -19,7 +19,7 @@ const DashboardComponent = ({navigation}) => {
   _card = async el => {
     const jsonValue = await AsyncStorage.getItem('@user');
     jsonValue != null ? JSON.parse(jsonValue) : null;
-    if (el.name === 'BMI Report') {
+    if (el.name === 'BMI & BMR Report') {
       navigation.navigate('WeightScreen')
     }
     if (el.name === 'BMR Report') {

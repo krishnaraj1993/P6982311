@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Picker } from 'react-native';
+import { View, StyleSheet, Text, Picker,Image } from 'react-native';
 import DashboardHeader from '../components/DashboardHeader';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
@@ -126,8 +126,9 @@ const WeightScreen = ({ navigation }) => {
 
   return (
     <DashboardHeader logout="off" title="BMI and BMR Report">
+      
+      <Text style={styles.pageText}>Are you healty ?</Text>
       <View style={styles.container}>
-      <Text style={styles.titleText}>Are you healty ?</Text>
       <Text  style={styles.text}>Know your BMR</Text>
         <DropDown parameters="">
           <Picker
@@ -171,31 +172,7 @@ const WeightScreen = ({ navigation }) => {
       <Divider />
       <Text style={styles.titleText}>Your BMI {bmi.value}</Text>
 
-
-      <Text>BMI Categories:</Text>
-      <DataTable>
-        <DataTable.Header>
-          <DataTable.Title>BMI Value</DataTable.Title>
-          <DataTable.Title numeric>Wight Status</DataTable.Title>
-        </DataTable.Header>
-
-        <DataTable.Row>
-          <DataTable.Cell>Less Than 18.5</DataTable.Cell>
-          <DataTable.Cell numeric>Underweight</DataTable.Cell>
-        </DataTable.Row>
-        <DataTable.Row>
-          <DataTable.Cell>18.5–24.9</DataTable.Cell>
-          <DataTable.Cell numeric>Normal weight</DataTable.Cell>
-        </DataTable.Row>
-        <DataTable.Row>
-          <DataTable.Cell>25–29.9</DataTable.Cell>
-          <DataTable.Cell numeric>Overweight</DataTable.Cell>
-        </DataTable.Row>
-        <DataTable.Row>
-          <DataTable.Cell>BMI of 30 or greater</DataTable.Cell>
-          <DataTable.Cell numeric>Obesity</DataTable.Cell>
-        </DataTable.Row>
-      </DataTable>
+      <Image source = {require('../assets/chart.jpg')} style = {{ width: 350, height: 150 }}/>
       </View>
     </DashboardHeader>
   );
@@ -210,9 +187,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  pageText:{
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
   container: {
     flex: 1,
-    width:'100%',
+    width:'120%',
     paddingLeft:20,
     paddingRight:20,
     paddingTop:10,
@@ -222,7 +204,7 @@ const styles = StyleSheet.create({
   },
   container_bmi: {
     flex: 1,
-    width:'100%',
+    width:'120%',
     paddingLeft:20,
     paddingRight:20,
     paddingTop:10,

@@ -11,6 +11,8 @@ import {
   emailValidator,
   passwordValidator,
   nameValidator,
+  phoneValidator,
+  numValidator,
 } from '../core/utils';
 import InputScrollView from 'react-native-input-scroll-view';
 import DashboardHeader from '../components/DashboardHeader';
@@ -34,11 +36,22 @@ const RegisterScreen = ({ navigation }) => {
     const nameError = nameValidator(name.value);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
-
-    if (emailError || passwordError || nameError) {
+    const dobError = nameValidator(dob.value);
+    const mobileError = phoneValidator(mobile.value);
+    const heightError = numValidator(height.value);
+    const weightError = numValidator(weight.value);
+    
+    if(dob.value.length==0){
+      alert("Please select valid Date of Birth");
+    }
+    if (emailError || passwordError || nameError || dobError || mobileError) {
       setName({ ...name, error: nameError });
       setEmail({ ...email, error: emailError });
       setPassword({ ...password, error: passwordError });
+      setDob({ ...dob, error: dobError });
+      setMobile({ ...mobile, error: mobileError });
+      setWeight({ ...weight, error: weightError });
+      setHeight({ ...height, error: heightError });
       return;
     }
 
@@ -133,24 +146,24 @@ const RegisterScreen = ({ navigation }) => {
             returnKeyType="next"
             value={height.value}
             onChangeText={text => setHeight({ value: text, error: '' })}
-            error={!!email.error}
-            errorText={email.error}
+            error={!!height.error}
+            errorText={height.error}
           />
           <TextInput
             label="Weight (Kg)"
             returnKeyType="next"
             value={weight.value}
             onChangeText={text => setWeight({ value: text, error: '' })}
-            error={!!email.error}
-            errorText={email.error}
+            error={!!weight.error}
+            errorText={weight.error}
           />
           <TextInput
             label="Mobile Number"
             returnKeyType="next"
             value={mobile.value}
             onChangeText={text => setMobile({ value: text, error: '' })}
-            error={!!email.error}
-            errorText={email.error}
+            error={!!mobile.error}
+            errorText={mobile.error}
           />
           <Button
             loading={loading}
