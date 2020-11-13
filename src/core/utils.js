@@ -20,13 +20,12 @@ export const nameValidator = name => {
 };
 
 export const phoneValidator = name => {
-  if (!Number.isInteger(name) || name.length == 10) return 'Mobile Number should be 10 digit.';
+  if (isNaN(name) || name.length != 10) return 'Mobile Number should be 10 digit.';
 
   return '';
 };
 
 export const numValidator = name => {
-  if (!Number.isInteger(name)) return 'Enter valid input';
-
+  if (!name || name.length <= 0) return 'field cannot be empty.';
   return '';
 };

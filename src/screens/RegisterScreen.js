@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,Picker } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Picker } from 'react-native';
 import Background from '../components/Background';
 import Logo from '../components/Logo';
 import Header from '../components/Header';
@@ -14,6 +14,7 @@ import {
   phoneValidator,
   numValidator,
 } from '../core/utils';
+import AsyncStorage from '@react-native-community/async-storage';
 import InputScrollView from 'react-native-input-scroll-view';
 import DashboardHeader from '../components/DashboardHeader';
 import DatePicker from 'react-native-datepicker';
@@ -32,7 +33,8 @@ const RegisterScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [selectedValue, setSelectedValue] = useState('');
-  const _onSignUpPressed = () => {
+
+  const _onSignUpPressed = async () => {
     const nameError = nameValidator(name.value);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
@@ -40,11 +42,11 @@ const RegisterScreen = ({ navigation }) => {
     const mobileError = phoneValidator(mobile.value);
     const heightError = numValidator(height.value);
     const weightError = numValidator(weight.value);
-    
-    if(dob.value.length==0){
+
+    if (dob.value.length == 0) {
       alert("Please select valid Date of Birth");
     }
-    if (emailError || passwordError || nameError || dobError || mobileError) {
+    if (emailError || passwordError || nameError || weightError || heightError || mobileError || dobError) {
       setName({ ...name, error: nameError });
       setEmail({ ...email, error: emailError });
       setPassword({ ...password, error: passwordError });
@@ -55,7 +57,40 @@ const RegisterScreen = ({ navigation }) => {
       return;
     }
 
-    navigation.navigate('Dashboard');
+    let response = await fetch(
+      "https://communist-technicia.000webhostapp.com/index.php?username=" +
+      email.value +
+      "&password=" +
+      password.value +
+      "&dob=" +
+      dob.value +
+      "&gender=" +
+      gender.value +
+      "&appKey=GT62376235POABAajsja" +
+      "&height=" +
+      height.value +
+      "&weight=" +
+      weight.value +
+      "&moilenumber=" +
+      mobile.value +
+      "&case=2",
+      {
+        method: "GET",
+      }
+    );
+    let json = await response.json();
+    if (json.status === 1) {
+      await AsyncStorage.setItem('@user', JSON.stringify(json.data));
+      navigation.navigate('Dashboard');
+      return {};
+    } else {
+      return {
+        error: "Invalid email address format.",
+      };
+    }
+
+
+    //navigation.navigate('Dashboard');
   };
 
   return (

@@ -9,6 +9,7 @@ import {
   Dashboard,
   WeightScreen,
   WeightScreenBMR,
+  DietPlan,
 } from './screens';
 
 const Router = createStackNavigator(
@@ -20,6 +21,7 @@ const Router = createStackNavigator(
     Dashboard,
     WeightScreen,
     WeightScreenBMR,
+    DietPlan,
   },
   {
     initialRouteName: 'HomeScreen',

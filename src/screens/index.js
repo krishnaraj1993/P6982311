@@ -5,3 +5,4 @@ export { default as ForgotPasswordScreen } from './ForgotPasswordScreen';
 export { default as Dashboard } from './Dashboard';
 export { default as WeightScreen } from './WeightScreen';
 export { default as WeightScreenBMR } from './WeightScreenBMR';
+export { default as DietPlan } from './DietPlan';

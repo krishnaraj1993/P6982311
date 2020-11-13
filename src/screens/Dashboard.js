@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const items = [
   { name: 'BMI & BMR Report', background: '#3498db', icon: 'gratipay' },
-  //{ name: 'BMR Report', background: '#ef0202', icon: 'gratipay' },
+  { name: 'Diet Plan', background: '#ef0202', icon: 'gratipay' },
   //{ name: 'Lovely', background: '#efcf02', icon: 'heart' },
   //{ name: 'Team', background: '#02ef1d', icon: 'users' },
   //{ name: 'Friends', background: '#02cbef', icon: 'group' },
@@ -22,8 +22,8 @@ const DashboardComponent = ({navigation}) => {
     if (el.name === 'BMI & BMR Report') {
       navigation.navigate('WeightScreen')
     }
-    if (el.name === 'BMR Report') {
-      navigation.navigate('WeightScreenBMR')
+    if (el.name === 'Diet Plan') {
+      navigation.navigate('DietPlan')
     }
   };
 return(
