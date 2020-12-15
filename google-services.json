@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "923925368680",
+    "project_id": "appnotification-e38e4",
+    "storage_bucket": "appnotification-e38e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923925368680:android:95e402ab5491211c6290dd",
+        "android_client_info": {
+          "package_name": "com.kalashree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923925368680-u286quscefv3rdfqr49d2n9qs6ij03o5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLYvzcYhyuLjx3mb0_VSaRyAhgsFldgnw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "923925368680-u286quscefv3rdfqr49d2n9qs6ij03o5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
