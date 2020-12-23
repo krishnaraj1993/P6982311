@@ -8,7 +8,6 @@ import TextInput from '../components/TextInput';
 import BackButton from '../components/BackButton';
 import { theme } from '../core/theme';
 import { emailValidator, passwordValidator } from '../core/utils';
-import {UserState} from '../globals/users';
 import AsyncStorage from '@react-native-community/async-storage';
 
 
@@ -40,8 +39,8 @@ const LoginScreen = ({ navigation }) => {
       }
     );
     let json = await response.json();
+    json = JSON.parse(json);
     if(json.status===1){
-      console.log(json.data);
       await AsyncStorage.setItem('@user', JSON.stringify(json.data));
       navigation.navigate('Dashboard');
       return {};

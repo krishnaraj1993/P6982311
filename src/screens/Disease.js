@@ -33,6 +33,7 @@ export default class Disease extends Component {
       }
     );
     let json = await response.json();
+    json = JSON.parse(json);
     this.setState({ data: json.data });
   }
 
@@ -45,26 +46,28 @@ export default class Disease extends Component {
       }
     );
     let json = await response.json();
+    json = JSON.parse(json);
     Alert.alert(json.data);
   }
 
-  onCreateDisese = async (item) => {
+  onCreateDisese = async () => {
     var value = this.refs.form.getValue();
     console.log(value.Disease);
-    if(value.Disease!==null){
-    let response = await fetch(
-      "https://communist-technicia.000webhostapp.com/index.php?case=7&id=" + item.id,
-      {
-        method: "GET",
-      }
-    );
-    let json = await response.json();
-    Alert.alert(json.data);
-    }else{
+    if (value.Disease !== null) {
+      let response = await fetch(
+        "https://communist-technicia.000webhostapp.com/index.php?case=6&name=" + value.Disease + "&user=4",
+        {
+          method: "GET",
+        }
+      );
+      let json = await response.json();
+      json = JSON.parse(json);
+      Alert.alert(json.data);
+    } else {
       Alert.alert("Disease Name should not be empty");
     }
   }
-  
+
 
   render() {
     return (
