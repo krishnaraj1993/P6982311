@@ -46,6 +46,7 @@
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.10.2",
     "react-router": "^5.2.0",
+    "tcomb-form-native": "^0.6.20",
     "tslib": "^2.0.3"
   },
   "devDependencies": {

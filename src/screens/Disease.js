@@ -4,131 +4,167 @@ import {
   Text,
   View,
   Image,
+  Alert,
   TouchableOpacity,
   FlatList,
-  Dimensions,
-  Alert,
-  ScrollView
 } from 'react-native';
-
+import AsyncStorage from '@react-native-community/async-storage';
+import Button from '../components/Button';
+var t = require('tcomb-form-native');
+var Form = t.form.Form;
+var Person = t.struct({
+  Disease: t.String,
+});
+var options = {};
 export default class Disease extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      modalVisible:false,
-      userSelected:[],
-      data: [
-        {id:1,  name: "Comunity",   image:"https://img.icons8.com/clouds/100/000000/groups.png",           count:124.711},
-        {id:2,  name: "Housing",    image:"https://img.icons8.com/color/100/000000/real-estate.png",       count:234.722},
-        {id:3,  name: "Jobs",       image:"https://img.icons8.com/color/100/000000/find-matching-job.png", count:324.723} ,
-        {id:4,  name: "Personal",   image:"https://img.icons8.com/clouds/100/000000/employee-card.png",    count:154.573} ,
-        {id:5,  name: "For sale",   image:"https://img.icons8.com/color/100/000000/land-sales.png",        count:124.678} ,
-      ]
-    };
+    this.state = { data: [] };
+  }
+  async componentDidMount() {
+    const jsonValue = await AsyncStorage.getItem('@user');
+    object = JSON.parse(jsonValue);
+    id = object.id;
+    let response = await fetch(
+      "https://communist-technicia.000webhostapp.com/index.php?case=5&user=" + id,
+      {
+        method: "GET",
+      }
+    );
+    let json = await response.json();
+    this.setState({ data: json.data });
   }
 
-  clickEventListener = (item) => {
-    Alert.alert('Message', 'Item clicked. '+item.name);
+
+  deleteProduct = async (item) => {
+    let response = await fetch(
+      "https://communist-technicia.000webhostapp.com/index.php?case=7&id=" + item.id,
+      {
+        method: "GET",
+      }
+    );
+    let json = await response.json();
+    Alert.alert(json.data);
   }
+
+  onCreateDisese = async (item) => {
+    var value = this.refs.form.getValue();
+    console.log(value.Disease);
+    if(value.Disease!==null){
+    let response = await fetch(
+      "https://communist-technicia.000webhostapp.com/index.php?case=7&id=" + item.id,
+      {
+        method: "GET",
+      }
+    );
+    let json = await response.json();
+    Alert.alert(json.data);
+    }else{
+      Alert.alert("Disease Name should not be empty");
+    }
+  }
+  
 
   render() {
     return (
       <View style={styles.container}>
-        <FlatList 
-          style={styles.contentList}
-          columnWrapperStyle={styles.listContainer}
-          data={this.state.data}
-          keyExtractor= {(item) => {
-            return (item.id).toString();
-          }}
-          renderItem={({item}) => {
-          return (
-            <TouchableOpacity style={styles.card} onPress={() => {this.clickEventListener(item)}}>
-              <Image style={styles.image} source={{uri: item.image}}/>
-              <View style={styles.cardContent}>
-                <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.count}>{item.count}</Text>
-                <TouchableOpacity style={styles.followButton} onPress={()=> this.clickEventListener(item)}>
-                  <Text style={styles.followButtonText}>Explore now</Text>  
+        <Form
+          ref="form"
+          type={Person}
+          options={options}
+        />
+        <Button mode="contained" onPress={() => this.onCreateDisese()}>
+          Save Disease
+        </Button>
+        <View style={styles.body}>
+          <FlatList
+            enableEmptySections={true}
+            data={this.state.data}
+            keyExtractor={(item) => {
+              return (item.id).toString();
+            }}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity onPress={() => this.deleteProduct(item)}>
+                  <View style={styles.box}>
+                    <Image style={styles.image} source={{ uri: item.image }} />
+                    <Text style={styles.username}>{item.username}</Text>
+                    <View style={styles.iconContent}>
+                      <Image style={styles.icon} source={{ uri: "https://icons-for-free.com/iconfiles/png/512/minus+remove+icon-1320183421124253557.png" }} />
+                    </View>
+                  </View>
                 </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          )}}/>
+              )
+            }} />
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    marginTop:20,
-    backgroundColor:"#ebf0f7"
+  container: {
+    flex: 1,
+    padding: 40,
+    marginTop: 20,
+    backgroundColor: "#ebf0f7"
   },
-  contentList:{
-    flex:1,
+  image: {
+    width: 90,
+    height: 90,
+    borderRadius: 45,
+    borderWidth: 2,
+    borderColor: "#ebf0f7"
   },
-  cardContent: {
-    marginLeft:20,
-    marginTop:10
-  },
-  image:{
-    width:90,
-    height:90,
-    borderRadius:45,
-    borderWidth:2,
-    borderColor:"#ebf0f7"
+  text: {
+    color: '#4f603c'
   },
 
-  card:{
-    shadowColor: '#00000021',
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.37,
-    shadowRadius: 7.49,
-    elevation: 12,
-
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop:20,
-    backgroundColor:"white",
-    padding: 10,
-    flexDirection:'row',
-    borderRadius:30,
+  name: {
+    fontSize: 18,
+    flex: 1,
+    alignSelf: 'center',
+    color: "#3399ff",
+    fontWeight: 'bold'
   },
-
-  name:{
-    fontSize:18,
-    flex:1,
-    alignSelf:'center',
-    color:"#3399ff",
-    fontWeight:'bold'
+  image: {
+    width: 60,
+    height: 60,
   },
-  count:{
-    fontSize:14,
-    flex:1,
-    alignSelf:'center',
-    color:"#6666ff"
+  body: {
+    width: '100%',
+    flex: 1,
+    backgroundColor: "#E6E6FA",
   },
-  followButton: {
-    marginTop:10,
-    height:35,
-    width:100,
-    padding:10,
+  box: {
+    marginTop: 5,
+    marginBottom: 5,
+    backgroundColor: '#FFFFFF',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius:30,
-    backgroundColor: "white",
-    borderWidth:1,
-    borderColor:"#dcdcdc",
+    shadowColor: 'black',
+    shadowOpacity: .2,
+    shadowOffset: {
+      height: 1,
+      width: -2
+    },
+    elevation: 2
   },
-  followButtonText:{
-    color: "#dcdcdc",
-    fontSize:12,
+  username: {
+    color: "#20B2AA",
+    fontSize: 22,
+    alignSelf: 'center',
+    marginLeft: 10
   },
-}); 
-         
+  iconContent: {
+    width: 60,
+    height: 60,
+    marginLeft: 'auto',
+    alignItems: 'center'
+  },
+  icon: {
+    top: 10,
+    width: 40,
+    height: 40,
+  }
+});
