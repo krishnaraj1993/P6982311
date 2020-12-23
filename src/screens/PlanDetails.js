@@ -21,16 +21,16 @@ const PlanDetails = ({ navigation, route }) => {
     object = JSON.parse(jsonValue);
     id = object.id;
     let response = await fetch(
-      "https://24d7e35131ce.ngrok.io/PHP_Projects/backend-api/caloriBackend/index.php?planId=" +
-      plan + "&case=3&user="+id,
+      "https://communist-technicia.000webhostapp.com/index.php?planId=" +
+      plan + "&case=4&user="+id,
       {
         method: "GET",
       }
     );
     let json = await response.json();
     if (json.status === 1) {
-      alert("Plan updated successfully");
-      return {};
+      //alert("Plan updated successfully");
+      navigation.navigate('Congratulation')
     } else {
       return {
         error: "Invalid email address format.",

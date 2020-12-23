@@ -20,7 +20,6 @@ const LoginScreen = ({ navigation }) => {
 
   const _onLoginPressed = async() => {
     const jsonValue = await AsyncStorage.getItem('@user');
-    console.log(jsonValue);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
 
@@ -42,6 +41,7 @@ const LoginScreen = ({ navigation }) => {
     );
     let json = await response.json();
     if(json.status===1){
+      console.log(json.data);
       await AsyncStorage.setItem('@user', JSON.stringify(json.data));
       navigation.navigate('Dashboard');
       return {};

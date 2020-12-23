@@ -7,3 +7,6 @@ export { default as WeightScreen } from './WeightScreen';
 export { default as WeightScreenBMR } from './WeightScreenBMR';
 export { default as DietPlan } from './DietPlan';
 export { default as PlanDetails } from './PlanDetails';
+export { default as Profile } from './Profile';
+export { default as Congratulation } from './Congratulation';
+export { default as Disease } from './Disease';

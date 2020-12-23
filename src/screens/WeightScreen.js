@@ -1,11 +1,10 @@
 import React, { memo, useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Picker,Image } from 'react-native';
+import { View, StyleSheet, Text, Picker, Image } from 'react-native';
 import DashboardHeader from '../components/DashboardHeader';
 import AsyncStorage from '@react-native-community/async-storage';
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { useCountUp } from 'react-countup';
 import DropDown from '../components/DropDownlist';
-import { DataTable, Divider, Card} from 'react-native-paper';
+import { DataTable, Divider, Card } from 'react-native-paper';
 
 
 const WeightScreen = ({ navigation }) => {
@@ -25,7 +24,6 @@ const WeightScreen = ({ navigation }) => {
     async function getUsers() {
       const jsonValue = await AsyncStorage.getItem('@user');
       jsonValue != null ? JSON.parse(jsonValue) : null;
-      console.log(jsonValue);
       object = JSON.parse(jsonValue);
       gender = object.gender;
       weight = object.weight;
@@ -126,10 +124,10 @@ const WeightScreen = ({ navigation }) => {
 
   return (
     <DashboardHeader logout="off" title="BMI and BMR Report">
-      
+
       <Text style={styles.pageText}>Are you healty ?</Text>
       <View style={styles.container}>
-      <Text  style={styles.text}>Know your BMR</Text>
+        <Text style={styles.text}>Know your BMR</Text>
         <DropDown parameters="">
           <Picker
             selectedValue={selectedValue}
@@ -163,16 +161,16 @@ const WeightScreen = ({ navigation }) => {
         {selectedValue.value === 'extremelyActivite' ? (
           <Text style={styles.titleText}>Your BMR {bmiEa.value}</Text>
         ) : null}
-      
+
       </View>
-      
+
       <Divider />
       <View style={styles.container_bmi}>
-      <Text style={styles.text}>Know your BMI</Text>
-      <Divider />
-      <Text style={styles.titleText}>Your BMI {bmi.value}</Text>
+        <Text style={styles.text}>Know your BMI</Text>
+        <Divider />
+        <Text style={styles.titleText}>Your BMI {bmi.value}</Text>
 
-      <Image source = {require('../assets/chart.jpg')} style = {{ width: 350, height: 150 }}/>
+        <Image source={require('../assets/chart.jpg')} style={{ width: 350, height: 150 }} />
       </View>
     </DashboardHeader>
   );
@@ -187,32 +185,32 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  pageText:{
+  pageText: {
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   container: {
     flex: 1,
-    width:'120%',
-    paddingLeft:20,
-    paddingRight:20,
-    paddingTop:10,
-    backgroundColor:'#edf1f5',
-    height:200,
+    width: '120%',
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    backgroundColor: '#edf1f5',
+    height: 200,
     justifyContent: 'center',
   },
   container_bmi: {
     flex: 1,
-    width:'120%',
-    paddingLeft:20,
-    paddingRight:20,
-    paddingTop:10,
-    backgroundColor:'#edf5ed',
-    height:200,
+    width: '120%',
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    backgroundColor: '#edf5ed',
+    height: 200,
     justifyContent: 'center',
   },
-  text:{
+  text: {
     textAlign: 'center'
   }
 });

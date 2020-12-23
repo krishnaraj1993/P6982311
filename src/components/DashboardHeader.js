@@ -2,11 +2,14 @@ import React, { memo } from "react";
 import { Appbar } from "react-native-paper";
 import { StyleSheet, ScrollView } from "react-native";
 import Background from "../components/Background";
-//import { logoutUser } from "../api/auth-api";
+import AsyncStorage from '@react-native-community/async-storage';
 
 const DashboardHeader = (props) => {
-  const _handleMore = () => console.log("Shown more");
-  const Logout = <Appbar.Action icon="logout" onPress={() => alert("logout")} />;
+  const logout = async (props) => {
+    //await AsyncStorage.setItem('@user', "");
+    props.logoutClick;
+  };
+  const Logout = <Appbar.Action icon="logout" onPress={() => logout(props)} />;
   return (
     <>
       <Appbar.Header>
@@ -14,7 +17,7 @@ const DashboardHeader = (props) => {
         {props.logout === 'off' ? null : Logout}
       </Appbar.Header>
       <Background>
-          {props.children}
+        {props.children}
       </Background>
     </>
   );
